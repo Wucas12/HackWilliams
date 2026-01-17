@@ -37,3 +37,14 @@ next-env.d.ts
 
 # extracted data files
 /data/extractions/
+
+# debug logs
+.cursor/debug.log
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

@@ -136,7 +136,7 @@ export default function Dashboard() {
       setStep('review');
       setSelectedEvents(new Set(localEvents.map(e => e.id)));
     }
-  }, [isExtracting, clarificationQuestions.length, localEvents.length, step]);
+  }, [isExtracting, clarificationQuestions.length, localEvents, step]);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const uploadedFile = e.target.files?.[0];
@@ -387,23 +387,31 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b overflow-hidden" style={{background: 'linear-gradient(to bottom, rgba(80, 0, 130, 0.1), white, rgb(219, 234, 254))'}}>
-      {/* Google Fonts */}
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      <link href="https://fonts.googleapis.com/css2?family=Canela+Text:wght@300;400;700&display=swap" rel="stylesheet" />
-      
       <div className="relative max-w-5xl mx-auto px-4 md:px-6 py-8 md:py-16">
-        {/* Title - Top Left */}
-        <h1 
-          className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight leading-none text-left mb-6"
-          style={{
-            fontFamily: "'Canela Text', serif",
-            fontWeight: 250,
-            color: 'rgb(80, 0, 130)',
-            marginLeft: '6.5rem'
-          }}
-        >
-          SATURDAY.AI
-        </h1>
+        {/* Header with Title and Navigation */}
+        <div className="flex items-center justify-between mb-6">
+          <h1 
+            className="text-2xl md:text-4xl lg:text-5xl font-light tracking-tight leading-none text-left"
+            style={{
+              fontFamily: "'Canela Text', serif",
+              fontWeight: 250,
+              color: 'rgb(80, 0, 130)',
+              marginLeft: '6.5rem'
+            }}
+          >
+            SATURDAY.AI
+          </h1>
+          <Link
+            href="/book-meeting"
+            className="px-4 py-2 text-white rounded-lg font-semibold text-sm md:text-base hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
+            style={{background: 'linear-gradient(to right, rgb(80, 0, 130), #9333ea, #2563eb)',
+                marginRight: '6.5rem'
+            }}
+          >
+            <Calendar className="w-4 h-4" />
+            Book Meeting
+          </Link>
+        </div>
 
         {/* Main Card */}
         <div 
@@ -541,7 +549,7 @@ export default function Dashboard() {
                   >
                     <Upload className="w-12 md:w-16 h-12 md:h-16 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" style={{color: 'rgb(80, 0, 130)'}} />
                     <label className="cursor-pointer">
-                      <span className="text-base md:text-lg font-semibold text-gray-900 block mb-2" style={{fontFamily: "'Inter', sans-serif"}}>
+                      <span className="text-base md:text-lg font-semibold text-gray-900 block mb-2" style={{fontFamily: "'Canela Text', serif"}}>
                         {file ? file.name : 'Drop your syllabus here'}
                       </span>
                       <span className="text-xs md:text-sm text-gray-500">PDF only • Up to 10MB</span>
@@ -609,8 +617,8 @@ export default function Dashboard() {
                 <div className="absolute inset-0 w-20 md:w-24 h-20 md:h-24 border-4 border-transparent border-b-violet-500 rounded-full animate-spin-reverse"></div>
                 <Sparkles className="w-8 md:w-10 h-8 md:h-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse" style={{color: 'rgb(80, 0, 130)'}} />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2" style={{fontFamily: "'Playfair Display', serif"}}>Processing your syllabus</h3>
-              <p className="text-sm md:text-base font-medium" style={{fontFamily: "'Inter', sans-serif", color: 'rgb(80, 0, 130)'}}>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2" style={{fontFamily: "'Canela Text', serif"}}>Processing your syllabus</h3>
+              <p className="text-sm md:text-base font-medium" style={{fontFamily: "'Canela Text', serif", color: 'rgb(80, 0, 130)'}}>
                 {processingStep < processingSteps.length ? processingSteps[processingStep] : processingSteps[processingSteps.length - 1]}
               </p>
             </div>
@@ -630,8 +638,8 @@ export default function Dashboard() {
                 Back
               </button>
               <div className="text-center mb-6">
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2" style={{fontFamily: "'Playfair Display', serif"}}>Clarification Needed</h3>
-                <p className="text-sm md:text-base text-gray-600" style={{fontFamily: "'Inter', sans-serif"}}>
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2" style={{fontFamily: "'Canela Text', serif"}}>Clarification Needed</h3>
+                <p className="text-sm md:text-base text-gray-600" style={{fontFamily: "'Canela Text', serif"}}>
                   We need a bit more information to extract events accurately
                 </p>
               </div>
@@ -686,8 +694,8 @@ export default function Dashboard() {
               </button>
               <div className="flex items-center justify-between pb-4 border-b border-gray-200">
                 <div>
-                  <h3 className="text-2xl md:text-4xl font-bold text-gray-900" style={{fontFamily: "'Playfair Display', serif"}}>{displayEvents.length} Events</h3>
-                  <p className="text-xs md:text-sm text-gray-600 mt-1" style={{fontFamily: "'Inter', sans-serif"}}>{selectedCount} selected</p>
+                  <h3 className="text-2xl md:text-4xl font-bold text-gray-900" style={{fontFamily: "'Canela Text', serif"}}>{displayEvents.length} Events</h3>
+                  <p className="text-xs md:text-sm text-gray-600 mt-1" style={{fontFamily: "'Canela Text', serif"}}>{selectedCount} selected</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -832,7 +840,7 @@ export default function Dashboard() {
                                       
                                       <div>
                                         <label className="block text-xs font-medium text-gray-600 mb-1">
-                                          Days of Week (e.g., "Monday, Wednesday, Friday" or "MWF")
+                                          Days of Week (e.g., &quot;Monday, Wednesday, Friday&quot; or &quot;MWF&quot;)
                                         </label>
                                         <input
                                           type="text"
@@ -867,7 +875,7 @@ export default function Dashboard() {
                         ) : (
                           <>
                             <div className="flex items-center gap-2 mb-2">
-                              <h4 className="font-semibold text-gray-900 text-base md:text-lg break-words" style={{fontFamily: "'Inter', sans-serif"}}>
+                              <h4 className="font-semibold text-gray-900 text-base md:text-lg break-words" style={{fontFamily: "'Canela Text', serif"}}>
                                 {event.courseName ? `${event.courseName}: ${event.title}` : event.title}
                               </h4>
                               <span className={`px-2 py-0.5 ${colorScheme.iconBg} ${colorScheme.text} text-xs font-semibold rounded-full`}>
@@ -988,15 +996,26 @@ export default function Dashboard() {
                 <div className="absolute inset-0 bg-green-400 rounded-full blur-2xl opacity-40 animate-pulse"></div>
                 <CheckCircle className="relative w-20 md:w-24 h-20 md:h-24 text-green-600 animate-bounce-in" />
               </div>
-              <h3 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3" style={{fontFamily: "'Playfair Display', serif"}}>You&apos;re all set!</h3>
-              <p className="text-sm md:text-base text-gray-600 mb-8" style={{fontFamily: "'Inter', sans-serif"}}>{selectedCount} events synced to your calendar</p>
-              <button
-                onClick={resetApp}
-                className="py-3 px-6 md:px-8 text-white rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300"
-                style={{background: 'linear-gradient(to right, rgb(80, 0, 130), #9333ea, #2563eb)'}}
-              >
-                Sync Another Syllabus
-              </button>
+              <h3 className="text-2xl md:text-4xl font-bold text-gray-900 mb-3" style={{fontFamily: "'Canela Text', serif"}}>You&apos;re all set!</h3>
+              <p className="text-sm md:text-base text-gray-600 mb-8" style={{fontFamily: "'Canela Text', serif"}}>{selectedCount} events synced to your calendar</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a
+                  href="https://calendar.google.com/calendar/r"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-3 px-6 md:px-8 text-white rounded-xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center gap-2"
+                  style={{background: 'linear-gradient(to right, rgb(80, 0, 130), #9333ea, #2563eb)'}}
+                >
+                  <Calendar className="w-5 h-5" />
+                  View in Google Calendar
+                </a>
+                <button
+                  onClick={resetApp}
+                  className="py-3 px-6 md:px-8 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 hover:shadow-xl hover:scale-105 transition-all duration-300"
+                >
+                  Sync Another Syllabus
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -1007,10 +1026,10 @@ export default function Dashboard() {
           style={{
             opacity: loaded ? 1 : 0,
             transitionDelay: '1200ms',
-            fontFamily: "'Inter', sans-serif"
+            fontFamily: "'Canela Text', serif"
           }}
         >
-          <p>Built for students • Powered by AI • Made with ♥</p>
+          <p>© 2026 Saturday.ai</p>
         </div>
       </div>
 

@@ -12,6 +12,7 @@ Transform your syllabus PDFs into structured Google Calendar events with AI-powe
 - 🎨 **Color-Coded Events**: Automatic color coding for assignments (green), exams (yellow), and projects (red)
 - ⚠️ **Stress Detection**: Automatically detects high-stress periods (busy weeks) in your calendar
 - 📚 **Reading Materials**: Extract and include reading assignments in calendar events
+- 🤝 **AI Meeting Booking**: Book meetings with others by checking availability and suggesting time slots
 
 ## Tech Stack
 
@@ -178,3 +179,4 @@ MIT
 - OpenAI for GPT-4o
 - Google Calendar API
 - Next.js team
+- Williams Career Center and EphVenture for providing the oppurtunity for this hackathon

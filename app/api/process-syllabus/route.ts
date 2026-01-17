@@ -323,9 +323,6 @@ export async function POST(request: NextRequest) {
         return null; // Filter out invalid dates
       }
       
-      // Log extracted dates for verification
-      console.log(`Extracted event: "${event.title}" on ${dateStr}`);
-      
       return event;
     }).filter((event): event is SyllabusEvent => event !== null); // Remove null entries
 
@@ -479,7 +476,6 @@ ALWAYS return exactly one question - never an empty array.`,
       };
       
       await writeFile(filepath, JSON.stringify(extractionData, null, 2), 'utf-8');
-      console.log(`Saved extraction to: ${filepath}`);
     } catch (fileError) {
       console.error('Error saving extraction file:', fileError);
       // Don't fail the request if file saving fails

@@ -1,11 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
-export default function LoginButton() {
+interface LoginButtonProps {
+  label?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+export default function LoginButton({ label, className, style }: LoginButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   const handleLogin = async () => {
     setIsLoading(true);
@@ -24,14 +28,17 @@ export default function LoginButton() {
     }
   };
 
+  const defaultClassName = 'px-6 py-3 text-white rounded-lg transition-all duration-300 hover:shadow-xl hover:scale-105';
+  const defaultStyle = { background: 'linear-gradient(to right, rgb(80, 0, 130), #9333ea, #2563eb)' };
+
   return (
     <button
       onClick={handleLogin}
       disabled={isLoading}
-      className="px-6 py-3 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 hover:shadow-xl hover:scale-105"
-      style={{background: 'linear-gradient(to right, rgb(80, 0, 130), #9333ea, #2563eb)'}}
+      className={`${className ?? defaultClassName} disabled:opacity-50 disabled:cursor-not-allowed`}
+      style={style ?? defaultStyle}
     >
-      {isLoading ? 'Loading...' : 'Sign in with Google'}
+      {isLoading ? 'Loading...' : (label ?? 'Sign in with Google')}
     </button>
   );
 }
