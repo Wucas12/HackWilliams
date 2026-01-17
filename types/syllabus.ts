@@ -21,16 +21,6 @@ export interface SyllabusEvent {
   courseName?: string; // Course name (e.g., "CS 101", "Introduction to Computer Science")
 }
 
-export interface StressReport {
-  hasStress: boolean;
-  stressDays: {
-    date: string;
-    totalWeight: number;
-    itemCount: number;
-    events: SyllabusEvent[];
-  }[];
-}
-
 export interface CalendarStressAnalysis {
   isHighStressWeek: boolean;
   averageEventsPerDay: number;
