@@ -65,7 +65,7 @@ export default function AddEventPage() {
           </button>
           <h1 className="text-4xl font-bold mb-2">Add Custom Event</h1>
           <p className="text-gray-600">
-            Describe your event(s) in natural language and we'll extract the details for you
+            Describe your event(s) in natural language and we&apos;ll extract the details for you
           </p>
         </div>
 
