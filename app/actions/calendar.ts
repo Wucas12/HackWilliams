@@ -117,6 +117,28 @@ export async function syncToCalendar(events: SyllabusEvent[]) {
       if (event.courseName && event.courseName.trim()) {
         descriptionParts.push(`Course: ${event.courseName}`);
       }
+      
+      // Add recurrence information to description for recurring events
+      if (event.isRecurring) {
+        const recurrenceInfo = [];
+        if (event.recurrenceFrequency) {
+          const freqText = event.recurrenceFrequency === 'daily' ? 'Daily' 
+            : event.recurrenceFrequency === 'weekly' ? 'Weekly'
+            : event.recurrenceFrequency === 'biweekly' ? 'Biweekly'
+            : 'Recurring';
+          recurrenceInfo.push(freqText);
+        }
+        if (event.recurrenceDaysOfWeek) {
+          recurrenceInfo.push(`on ${event.recurrenceDaysOfWeek}`);
+        }
+        if (event.recurrenceEndDate) {
+          const endDate = new Date(event.recurrenceEndDate);
+          recurrenceInfo.push(`until ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`);
+        }
+        if (recurrenceInfo.length > 0) {
+          descriptionParts.push(`🔄 Recurring: ${recurrenceInfo.join(' ')}`);
+        }
+      }
 
       // Format title as "Course Name: Event Title" (e.g., "CS 101: Homework 1")
       const calendarTitle = (event.courseName && event.courseName.trim())
@@ -136,6 +158,14 @@ export async function syncToCalendar(events: SyllabusEvent[]) {
           timeZone: 'America/New_York',
         },
       };
+
+      // Handle recurring events with Google Calendar RRULE
+      if (event.isRecurring && event.recurrenceFrequency && event.recurrenceEndDate) {
+        const recurrenceRule = buildRecurrenceRule(event);
+        if (recurrenceRule) {
+          calendarEvent.recurrence = [recurrenceRule];
+        }
+      }
 
       // Add color coding for assignment (green), exam (yellow), project (red)
       const colorId = getEventColor(event.type);
@@ -196,6 +226,76 @@ function addHour(time: string): string {
   const [hours, minutes] = time.split(':').map(Number);
   const newHours = (hours + 1) % 24;
   return `${String(newHours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+}
+
+// Convert recurrence fields to Google Calendar RRULE format
+function buildRecurrenceRule(event: SyllabusEvent): string | null {
+  if (!event.isRecurring || !event.recurrenceFrequency || !event.recurrenceEndDate) {
+    return null;
+  }
+
+  const dayMap: Record<string, string> = {
+    'monday': 'MO',
+    'tuesday': 'TU',
+    'wednesday': 'WE',
+    'thursday': 'TH',
+    'friday': 'FR',
+    'saturday': 'SA',
+    'sunday': 'SU',
+    'm': 'MO',
+    'mwf': 'MO,WE,FR',
+    'tth': 'TU,TH',
+    'tt': 'TU,TH',
+    'wf': 'WE,FR',
+  };
+
+  // Parse days of week
+  let byDay = '';
+  if (event.recurrenceDaysOfWeek) {
+    const daysLower = event.recurrenceDaysOfWeek.toLowerCase().trim();
+    // Check for common abbreviations first
+    if (dayMap[daysLower]) {
+      byDay = dayMap[daysLower];
+    } else {
+      // Parse comma-separated day names
+      const days = event.recurrenceDaysOfWeek.split(',').map(d => d.trim().toLowerCase());
+      const dayCodes = days
+        .map(day => dayMap[day])
+        .filter(Boolean);
+      if (dayCodes.length > 0) {
+        byDay = dayCodes.join(',');
+      }
+    }
+  }
+
+  // Convert end date to RFC5545 format (YYYYMMDDTHHMMSSZ)
+  const endDate = new Date(event.recurrenceEndDate);
+  const untilStr = endDate.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+
+  // Build RRULE based on frequency
+  let rrule = '';
+  if (event.recurrenceFrequency === 'daily') {
+    rrule = `RRULE:FREQ=DAILY;UNTIL=${untilStr}`;
+  } else if (event.recurrenceFrequency === 'weekly') {
+    if (byDay) {
+      rrule = `RRULE:FREQ=WEEKLY;BYDAY=${byDay};UNTIL=${untilStr}`;
+    } else {
+      // If no days specified, use the day of the week from the start date
+      const startDate = new Date(event.date);
+      const dayOfWeek = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'][startDate.getDay()];
+      rrule = `RRULE:FREQ=WEEKLY;BYDAY=${dayOfWeek};UNTIL=${untilStr}`;
+    }
+  } else if (event.recurrenceFrequency === 'biweekly') {
+    if (byDay) {
+      rrule = `RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=${byDay};UNTIL=${untilStr}`;
+    } else {
+      const startDate = new Date(event.date);
+      const dayOfWeek = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'][startDate.getDay()];
+      rrule = `RRULE:FREQ=WEEKLY;INTERVAL=2;BYDAY=${dayOfWeek};UNTIL=${untilStr}`;
+    }
+  }
+
+  return rrule || null;
 }
 
 export async function analyzeCalendarStress(totalDays: number = 28): Promise<CalendarStressAnalysis> {

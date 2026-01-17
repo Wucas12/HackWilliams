@@ -19,6 +19,11 @@ export interface SyllabusEvent {
   description?: string;
   studyResources?: StudyResource[];
   courseName?: string; // Course name (e.g., "CS 101", "Introduction to Computer Science")
+  // Recurrence fields for repetitive events (e.g., weekly classes)
+  isRecurring?: boolean; // Whether this event repeats
+  recurrenceFrequency?: 'daily' | 'weekly' | 'biweekly'; // How often it repeats
+  recurrenceEndDate?: string; // ISO date string (YYYY-MM-DD) when recurrence ends
+  recurrenceDaysOfWeek?: string; // Days of week, e.g., "Monday, Wednesday, Friday" or "MWF"
 }
 
 export interface CalendarStressAnalysis {

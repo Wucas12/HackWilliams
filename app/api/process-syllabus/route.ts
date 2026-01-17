@@ -22,6 +22,11 @@ const SyllabusEventSchema = z.object({
   location: z.string().optional(),
   description: z.string().optional(),
   courseName: z.string().optional(), // Course name (e.g., "CS 101", "Introduction to Computer Science")
+  // Recurrence fields
+  isRecurring: z.boolean().optional(),
+  recurrenceFrequency: z.enum(['daily', 'weekly', 'biweekly']).optional(),
+  recurrenceEndDate: z.string().optional(),
+  recurrenceDaysOfWeek: z.string().optional(),
 });
 
 const SyllabusExtractionSchema = z.object({
@@ -94,8 +99,12 @@ export async function POST(request: NextRequest) {
               location: { type: 'string' },
               description: { type: 'string' },
               courseName: { type: 'string' },
+              isRecurring: { type: 'boolean' },
+              recurrenceFrequency: { type: 'string', enum: ['daily', 'weekly', 'biweekly'] },
+              recurrenceEndDate: { type: 'string' },
+              recurrenceDaysOfWeek: { type: 'string' },
             },
-            required: ['id', 'title', 'type', 'date', 'startTime', 'endTime', 'location', 'description', 'courseName'],
+            required: ['id', 'title', 'type', 'date', 'startTime', 'endTime', 'location', 'description', 'courseName', 'isRecurring', 'recurrenceFrequency', 'recurrenceEndDate', 'recurrenceDaysOfWeek'],
           },
         },
       },
@@ -175,11 +184,58 @@ export async function POST(request: NextRequest) {
           - Use descriptive names that identify the specific assignment, exam, or project
           - Examples: "Homework 1: Problem Set 1", "Midterm Exam", "Final Project: Research Paper", "Quiz 2"
           
+          RECURRING EVENTS (REPETITIVE EVENTS):
+          - IMPORTANT: For events that repeat regularly (especially classes, office hours), extract them as RECURRING events
+          - Classes that meet "every Monday and Wednesday", "MWF", "Tuesdays and Thursdays", or similar patterns should be marked as recurring
+          - Office hours that repeat weekly should be marked as recurring
+          - For recurring events:
+            1. Set isRecurring to true
+            2. Set recurrenceFrequency based on pattern:
+               - "daily" for events that occur every day
+               - "weekly" for events that occur weekly (most common for classes)
+               - "biweekly" for events that occur every other week
+            3. Set recurrenceEndDate to the last date the event occurs (e.g., end of semester, final exam date, or date when class ends)
+               - Use ISO format (YYYY-MM-DD) - extract from syllabus (semester end date, final exam date, or last class date)
+            4. Set recurrenceDaysOfWeek to the days it repeats:
+               - Format as comma-separated day names: "Monday, Wednesday, Friday" or "MWF" or "Tuesday, Thursday"
+               - Examples: "Monday, Wednesday, Friday" for MWF classes, "Tuesday, Thursday" for TTh classes
+            5. Set date to the FIRST occurrence date of the recurring event
+          - For NON-RECURRING events (one-time assignments, exams, projects):
+            1. Set isRecurring to false
+            2. Set recurrenceFrequency to empty string ""
+            3. Set recurrenceEndDate to empty string ""
+            4. Set recurrenceDaysOfWeek to empty string ""
+          - EXAMPLES OF RECURRING EVENTS:
+            Input: "Class meets every Monday and Wednesday from 2:00-3:30 PM starting January 15, 2023 until May 10, 2023"
+            Output: {
+              isRecurring: true,
+              recurrenceFrequency: "weekly",
+              recurrenceEndDate: "2023-05-10",
+              recurrenceDaysOfWeek: "Monday, Wednesday",
+              date: "2023-01-15" // First occurrence
+            }
+            
+            Input: "Office Hours: Tuesdays 3:00-5:00 PM throughout the semester (ends May 12, 2023)"
+            Output: {
+              isRecurring: true,
+              recurrenceFrequency: "weekly",
+              recurrenceEndDate: "2023-05-12",
+              recurrenceDaysOfWeek: "Tuesday",
+              date: "2023-01-17" // First Tuesday (or closest start date)
+            }
+          
+          - CRITICAL: When you see patterns like "MWF", "TTh", "Monday/Wednesday/Friday", "Classes meet on Tuesdays and Thursdays", or "Weekly classes", 
+            you MUST extract them as recurring events, NOT as individual events for each occurrence.
+          
           Extract times in 24-hour format (HH:MM) if provided (e.g., "11:00 AM" → "11:00", "2:00 PM" → "14:00").
-          Generate unique IDs for each event (e.g., "homework-1", "midterm-exam-1", "final-project-1"). 
+          Generate unique IDs for each event (e.g., "homework-1", "midterm-exam-1", "final-project-1", "class-mwf-recurring"). 
           Include all fields: id (required), title (required, must be specific), type (required), date (required),
           startTime (use empty string "" if not available), endTime (use "" if not available),
           location (use "" if not available), description (use "" if not available), courseName (use empty string "" if not found).
+          For recurrence fields: isRecurring (use false if not recurring, true if recurring), 
+          recurrenceFrequency (use empty string "" if not recurring, otherwise "daily", "weekly", or "biweekly"),
+          recurrenceEndDate (use empty string "" if not recurring, otherwise ISO date YYYY-MM-DD),
+          recurrenceDaysOfWeek (use empty string "" if not recurring, otherwise comma-separated day names like "Monday, Wednesday, Friday").
           
           EXTRACTION MODE:
           - If the input text mentions "Extract only ONE event" or similar instruction, extract EXACTLY ONE event (the most important/main event)
