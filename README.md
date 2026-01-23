@@ -106,22 +106,6 @@ The system automatically categorizes events into:
 - **Project**: Long-term projects
 - **Reading**: Required readings
 - **Office Hours**: Professor/TA office hours
-
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Import the repository in [Vercel](https://vercel.com)
-3. Add environment variables in Vercel project settings:
-   - `OPENAI_API_KEY`
-   - `GOOGLE_CLIENT_ID`
-   - `GOOGLE_CLIENT_SECRET`
-   - `GOOGLE_REDIRECT_URI` (set to your Vercel domain + `/api/auth/google/callback`)
-4. Deploy!
-
-**Note**: GitHub Pages does not support Next.js server features. Use Vercel, Netlify, or similar platforms.
-
 ## Project Structure
 
 ```
@@ -159,20 +143,9 @@ When extraction is ambiguous, the system asks for clarification on:
 - Conflicting dates
 - Unclear event types
 
-### Stress Detection
-
-Automatically analyzes your calendar for:
-- High-stress weeks (>5 events/day average)
-- High-stress days (>7 events in a single day)
-- Creates calendar events for high-stress days
-
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-MIT
 
 ## Acknowledgments
 
