@@ -4,6 +4,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Saturday.solutions",
   description: "Transform your syllabus PDFs into Google Calendar events. Schedule smarter with Saturday.solutions.",
+  verification: {
+    google: "0I7zywZPjcBmZLxSBLX94cxhbuCPbh1JydgwM5Pq7mM",
+  },
 };
 
 export default function RootLayout({
