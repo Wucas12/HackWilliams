@@ -358,7 +358,7 @@ export default function Home() {
 
       <div className="relative max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-16">
         <div className="mb-16 md:mb-24 space-y-6 md:space-y-5">
-          <h1 id="mainTitle" className="text-4xl md:text-8xl lg:text-9xl font-light tracking-tight leading-none text-left" style={{ fontFamily: "'Canela Text', serif", fontWeight: 250, opacity: loaded ? 1 : 0, transform: loaded ? 'translateY(0) scale(1)' : 'translateY(40px) scale(0.95)', transition: 'all 1s ease-out', transitionDelay: '400ms' }}>
+          <h1 id="mainTitle" className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-light tracking-tight leading-none text-left" style={{ fontFamily: "'Canela Text', serif", fontWeight: 250, opacity: loaded ? 1 : 0, transform: loaded ? 'translateY(0) scale(1)' : 'translateY(40px) scale(0.95)', transition: 'all 1s ease-out', transitionDelay: '400ms' }}>
             <span className="block" style={{ color: 'rgb(80, 0, 130)' }}>SATURDAY.SOLUTIONS</span>
           </h1>
           <div className="text-left space-y-4 md:space-y-2 pl-4 md:pl-8">
