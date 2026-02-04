@@ -401,16 +401,6 @@ export default function Dashboard() {
           >
             SATURDAY.SOLUTIONS
           </h1>
-          <Link
-            href="/book-meeting"
-            className="px-4 py-2 text-white rounded-lg font-semibold text-sm md:text-base hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center gap-2"
-            style={{background: 'linear-gradient(to right, rgb(80, 0, 130), #9333ea, #2563eb)',
-                marginRight: '6.5rem'
-            }}
-          >
-            <Calendar className="w-4 h-4" />
-            Book Meeting
-          </Link>
         </div>
 
         {/* Main Card */}

@@ -49,7 +49,7 @@ export default function TermsPage() {
         <section className="mb-8">
           <h2 style={sectionTitle}>2. Description of Service</h2>
           <p style={bodyText}>
-            Saturday.solutions provides tools to (1) turn syllabus PDFs and natural language into calendar events and sync them to Google Calendar, and (2) book meetings with other users by checking availability and sending calendar invites. The service uses Google sign-in and Google Calendar (and related Google APIs) and may use third-party AI services (e.g., OpenAI) to process content you provide.
+            Saturday.solutions provides tools to turn syllabus PDFs and natural language into calendar events and sync them to Google Calendar. The service uses Google sign-in and Google Calendar and may use third-party AI services (e.g., OpenAI) to process content you provide.
           </p>
         </section>
 
@@ -80,7 +80,7 @@ export default function TermsPage() {
         <section className="mb-8">
           <h2 style={sectionTitle}>5. Your Content</h2>
           <p style={bodyText}>
-            You retain ownership of content you upload or submit (e.g., PDFs, meeting text). By using the service, you grant us the limited rights necessary to operate the service (e.g., to process your content with AI, read/write your calendar, send invites). We do not claim ownership of your content or use it for purposes unrelated to providing the service, as described in our Privacy Policy.
+            You retain ownership of content you upload or submit (e.g., PDFs). By using the service, you grant us the limited rights necessary to operate the service (e.g., to process your content with AI, read/write your calendar). We do not claim ownership of your content or use it for purposes unrelated to providing the service, as described in our Privacy Policy.
           </p>
         </section>
 

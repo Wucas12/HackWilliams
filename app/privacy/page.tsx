@@ -40,7 +40,7 @@ export default function PrivacyPage() {
         <section className="mb-8">
           <h2 style={sectionTitle}>1. Introduction</h2>
           <p style={bodyText}>
-            Saturday.solutions (&quot;we,&quot; &quot;our,&quot; or &quot;the service&quot;) is a scheduling and calendar tool that helps you turn syllabi and natural language into calendar events and book meetings. This Privacy Policy explains how we collect, use, store, and protect your information when you use our service, including when you sign in with Google.
+            Saturday.solutions (&quot;we,&quot; &quot;our,&quot; or &quot;the service&quot;) is a scheduling and calendar tool that helps you turn syllabi and natural language into calendar events. This Privacy Policy explains how we collect, use, store, and protect your information when you use our service, including when you sign in with Google.
           </p>
         </section>
 
@@ -51,8 +51,8 @@ export default function PrivacyPage() {
           </p>
           <ul className="list-disc pl-6 mt-2 space-y-1" style={bodyText}>
             <li><strong>Google account data:</strong> When you sign in with Google, we receive your email address, name, and profile information as provided by Google.</li>
-            <li><strong>Calendar data:</strong> We access your Google Calendar to read events (e.g., free/busy for meeting scheduling), create events (from syllabi or meeting bookings), and send invitations. We do not sell or share your calendar data with third parties for advertising.</li>
-            <li><strong>Content you provide:</strong> Syllabus PDFs you upload, meeting descriptions, attendee emails, and any text you enter in the app. This data is used only to fulfill the features you use (e.g., parsing events, generating invitation messages).</li>
+            <li><strong>Calendar data:</strong> We access your Google Calendar to read and create events (e.g., from syllabi you upload). We do not sell or share your calendar data with third parties for advertising.</li>
+            <li><strong>Content you provide:</strong> Syllabus PDFs you upload and any text you enter in the app. This data is used only to fulfill the features you use (e.g., parsing events).</li>
             <li><strong>Technical data:</strong> We may log general usage (e.g., errors, API usage) to operate and improve the service. We do not track you across other websites for advertising.</li>
           </ul>
         </section>
@@ -64,10 +64,8 @@ export default function PrivacyPage() {
           </p>
           <ul className="list-disc pl-6 mt-2 space-y-1" style={bodyText}>
             <li>Authenticate you and link your Google account to the service.</li>
-            <li>Read and write calendar events (syllabus sync, meeting booking) on your behalf.</li>
-            <li>Check free/busy availability for you and other participants when booking meetings.</li>
-            <li>Process syllabus PDFs and meeting text with AI to extract or generate event and invitation content.</li>
-            <li>Look up names (e.g., for invitation text) via Google APIs where you have granted access.</li>
+            <li>Read and write calendar events (e.g., from syllabus PDFs) on your behalf.</li>
+            <li>Process syllabus PDFs with AI to extract event details and sync them to your calendar.</li>
             <li>Improve the service, fix bugs, and comply with legal obligations.</li>
           </ul>
         </section>
@@ -83,7 +81,7 @@ export default function PrivacyPage() {
               &nbsp;and&nbsp;
               <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: 'rgb(80, 0, 130)' }}>Google Privacy Policy</a>.
             </li>
-            <li><strong>OpenAI:</strong> We may send syllabus text and meeting-related text to OpenAI to parse or generate content. OpenAI&apos;s use of data is governed by their&nbsp;
+            <li><strong>OpenAI:</strong> We may send syllabus text to OpenAI to parse event content. OpenAI&apos;s use of data is governed by their&nbsp;
               <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: 'rgb(80, 0, 130)' }}>Privacy Policy</a>.
             </li>
           </ul>
@@ -97,7 +95,7 @@ export default function PrivacyPage() {
           <p style={bodyText}>
             We retain your Google tokens and session data only as long as needed to provide the service. You can revoke our access at any time via your&nbsp;
             <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: 'rgb(80, 0, 130)' }}>Google Account permissions</a>.
-            Uploaded PDFs and meeting text are processed in real time; we do not retain them longer than necessary for the operation of the feature. We use industry-standard practices to protect data in transit and restrict access to your information.
+            Uploaded PDFs are processed in real time; we do not retain them longer than necessary for the operation of the feature. We use industry-standard practices to protect data in transit and restrict access to your information.
           </p>
         </section>
 
