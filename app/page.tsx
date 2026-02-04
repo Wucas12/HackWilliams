@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import LoginButton from '@/components/LoginButton';
 
 const LANDING_CSS = `
@@ -326,13 +327,22 @@ export default function Home() {
       <div ref={cursorRef} className="custom-cursor" />
       <canvas ref={canvasRef} id="cursorCanvas" className="fixed top-0 left-0 w-full h-full pointer-events-none" style={{ zIndex: 99998 }} />
 
-      <div className="absolute top-6 right-6 z-50">
-        <LoginButton
-          label="Continue with Google"
-          className="magnetic-button px-6 py-3 rounded-full font-medium transition-all duration-300"
-          style={{ background: 'linear-gradient(135deg, rgb(80, 0, 130), rgb(120, 40, 170))', color: 'white', fontFamily: "'Canela Text', serif" }}
-        />
-      </div>
+      <header className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-6 pointer-events-none">
+        <div className="pointer-events-auto">
+          <Link href="/" className="text-xl md:text-2xl font-light hover:opacity-80 transition-opacity" style={{ fontFamily: "'Canela Text', serif", color: 'rgb(80, 0, 130)' }}>
+            Saturday.solutions
+          </Link>
+        </div>
+        <nav className="pointer-events-auto flex items-center gap-4 md:gap-6 text-sm">
+          <Link href="/privacy" className="hover:underline hidden sm:inline" style={{ fontFamily: "'Canela Text', serif", color: 'rgb(80, 0, 130)' }}>Privacy Policy</Link>
+          <Link href="/terms" className="hover:underline hidden sm:inline" style={{ fontFamily: "'Canela Text', serif", color: 'rgb(80, 0, 130)' }}>Terms of Service</Link>
+          <LoginButton
+            label="Continue with Google"
+            className="magnetic-button px-6 py-3 rounded-full font-medium transition-all duration-300"
+            style={{ background: 'linear-gradient(135deg, rgb(80, 0, 130), rgb(120, 40, 170))', color: 'white', fontFamily: "'Canela Text', serif" }}
+          />
+        </nav>
+      </header>
 
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div id="blob1" className="absolute top-0 left-1/4 w-96 h-96 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-custom transition-all duration-2000" style={{ backgroundColor: 'rgba(80, 0, 130, 0.3)', opacity: loaded ? 0.3 : 0, transform: loaded ? 'scale(1)' : 'scale(0.5)' }} />
@@ -349,7 +359,7 @@ export default function Home() {
       <div className="relative max-w-6xl mx-auto px-4 md:px-6 py-8 md:py-16">
         <div className="mb-16 md:mb-24 space-y-6 md:space-y-5">
           <h1 id="mainTitle" className="text-4xl md:text-8xl lg:text-9xl font-light tracking-tight leading-none text-left" style={{ fontFamily: "'Canela Text', serif", fontWeight: 250, opacity: loaded ? 1 : 0, transform: loaded ? 'translateY(0) scale(1)' : 'translateY(40px) scale(0.95)', transition: 'all 1s ease-out', transitionDelay: '400ms' }}>
-            <span className="block" style={{ color: 'rgb(80, 0, 130)' }}>SATURDAY.AI</span>
+            <span className="block" style={{ color: 'rgb(80, 0, 130)' }}>SATURDAY.SOLUTIONS</span>
           </h1>
           <div className="text-left space-y-4 md:space-y-2 pl-4 md:pl-8">
             <h2 id="subtitle" className="text-md md:text-xl lg:text-2xl 2xl:text-3xl font-light tracking-wide" style={{ fontFamily: "'Canela Text', serif", fontWeight: 250, color: '#1a1a1a', opacity: loaded ? 1 : 0, transform: loaded ? 'translateY(0) translateX(0)' : 'translateY(30px) translateX(-20px)', transition: 'all 1s ease-out', transitionDelay: '600ms' }}>
@@ -396,7 +406,7 @@ export default function Home() {
             </div>
             <div className="step-item scroll-reveal slide-left flex items-start gap-6 cursor-pointer">
               <span className="step-number text-3xl md:text-4xl font-light" style={{ fontFamily: "'Canela Text', serif", color: 'rgb(80, 0, 130)' }}>03</span>
-              <p className="text-lg md:text-2xl font-light mt-2" style={{ fontFamily: "'Canela Text', serif", color: '#1a1a1a' }}>Watch as Saturday.AI intelligently organizes your schedule</p>
+              <p className="text-lg md:text-2xl font-light mt-2" style={{ fontFamily: "'Canela Text', serif", color: '#1a1a1a' }}>Watch as Saturday.solutions intelligently organizes your schedule</p>
             </div>
             <div className="step-item scroll-reveal slide-right flex items-start gap-6 cursor-pointer">
               <span className="step-number text-3xl md:text-4xl font-light" style={{ fontFamily: "'Canela Text', serif", color: 'rgb(80, 0, 130)' }}>04</span>
@@ -414,6 +424,14 @@ export default function Home() {
             style={{ background: 'linear-gradient(135deg, rgb(80, 0, 130), rgb(120, 40, 170))', color: 'white', fontFamily: "'Canela Text', serif" }}
           />
         </div>
+
+        <footer className="scroll-reveal fade-up text-center py-8 border-t border-gray-200/60">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm" style={{ fontFamily: "'Canela Text', serif", color: '#6b7280' }}>
+            <span>© 2026 Saturday.solutions</span>
+            <Link href="/privacy" className="hover:underline" style={{ color: 'rgb(80, 0, 130)' }}>Privacy Policy</Link>
+            <Link href="/terms" className="hover:underline" style={{ color: 'rgb(80, 0, 130)' }}>Terms of Service</Link>
+          </div>
+        </footer>
       </div>
     </div>
   );

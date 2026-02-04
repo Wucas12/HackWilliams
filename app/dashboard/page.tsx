@@ -399,7 +399,7 @@ export default function Dashboard() {
               marginLeft: '6.5rem'
             }}
           >
-            SATURDAY.AI
+            SATURDAY.SOLUTIONS
           </h1>
           <Link
             href="/book-meeting"
@@ -1029,7 +1029,11 @@ export default function Dashboard() {
             fontFamily: "'Canela Text', serif"
           }}
         >
-          <p>© 2026 Saturday.ai</p>
+          <p className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <span>© 2026 Saturday.solutions</span>
+            <Link href="/privacy" className="hover:underline" style={{ color: 'rgb(80, 0, 130)' }}>Privacy Policy</Link>
+            <Link href="/terms" className="hover:underline" style={{ color: 'rgb(80, 0, 130)' }}>Terms of Service</Link>
+          </p>
         </div>
       </div>
 

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Syllabus to Calendar",
-  description: "Transform your syllabus PDFs into Google Calendar events",
+  title: "Saturday.solutions",
+  description: "Transform your syllabus PDFs into Google Calendar events. Schedule smarter with Saturday.solutions.",
 };
 
 export default function RootLayout({
